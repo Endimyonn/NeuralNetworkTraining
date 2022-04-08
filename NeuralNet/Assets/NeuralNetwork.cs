@@ -94,12 +94,12 @@ public class NeuralNetwork
     }
 
 
-
+    [System.Serializable]
     public class WeightsHolder
     {
         // Maps neuron index from layer A to neuron index from layer B
         // For performance reasons, leaving it as an unfriendly jagged array
-        private float[][][] weights;
+        public float[][][] weights;
 
         public WeightsHolder(List<Layer> layers)
         {
@@ -124,8 +124,19 @@ public class NeuralNetwork
             }
         }
 
+        public WeightsHolder()
+        {
+            weights = null;
+        }
+
         public WeightsHolder(WeightsHolder copy)
         {
+            if (copy.weights == null)
+            {
+                weights = null;
+                return;
+            }
+
             weights = new float[copy.weights.Length][][];
             for (int i = 0; i < copy.weights.Length; ++i)
             {

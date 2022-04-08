@@ -85,6 +85,9 @@ public class NetTrainer : MonoBehaviour
 
     void EndRaceAndRestart()
     {
+        if (saveAtEnd)
+            DoSave();
+
         // Find the cutoff for the given percentile
         int index = Mathf.RoundToInt(finishedLearners.Count * promotionThreshold + 0.49f);
 
@@ -112,17 +115,29 @@ public class NetTrainer : MonoBehaviour
             EndRaceAndRestart();
     }
 
+    private string saveFile;
+    private bool saveAtEnd = false;
     public void SaveAs()
     {
         if (finishedLearners.Count == 0)
-            return;
+        {
+            Debug.Log("No learners have finished yet.  Please choose a file, then wait for this round to complete and the best learner will be saved.");
+        }
 
+
+        saveFile = FileBrowser.SaveFile("Save As...", Application.persistentDataPath, "SavedNeuralNet", "txt");
+        saveAtEnd = true;
+    }
+
+    private void DoSave()
+    {
         finishedLearners.Sort((a, b) => { return (a.fitness < b.fitness ? -1 : a.fitness == b.fitness ? 0 : 1); });
         NeuralNetwork net = finishedLearners[finishedLearners.Count - 1].net;
 
-        string filename = FileBrowser.OpenSingleFile("Save As...", Application.persistentDataPath, "txt");
+        net.Save(saveFile);
+        saveAtEnd = false;
 
-        net.Save(filename);
+        Debug.Log("Saved NeuralNetwork to " + saveFile);
     }
 
     public void Load()
@@ -155,5 +170,7 @@ public class NetTrainer : MonoBehaviour
             lnr.OnFinish += LearnerFinished;
             learners.Add(lnr);
         }
+
+        Debug.Log("Loaded NeuralNetwork.");
     }
 }
