@@ -9398,7 +9398,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10eee68df8f824846abfc571c92d6bef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fitnessValue: 100
+  fitnessValue: 400
   alreadyTriggered: []
 --- !u!64 &989171330
 MeshCollider:
@@ -19855,7 +19855,7 @@ MonoBehaviour:
   automatic: 1
   learners: []
   finishedLearners: []
-  maxRunTime: 60
+  maxRunTime: 20
   mutationParameterChance: 20
   mutationMaxAmount: 0.58
 --- !u!1 &1950385471
