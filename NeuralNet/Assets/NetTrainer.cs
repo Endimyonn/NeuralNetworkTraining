@@ -105,6 +105,13 @@ public class NetTrainer : MonoBehaviour
 
         finishedLearners.Clear();
 
+        FitnessTrigger[] fitnessTriggers = Object.FindObjectsOfType<FitnessTrigger>();
+        foreach (FitnessTrigger fitnessTrigger in fitnessTriggers)
+        {
+            fitnessTrigger.alreadyTriggered.Clear();
+        }
+        Debug.Log("Reset " + fitnessTriggers.Length + " fitness trigger" + (fitnessTriggers.Length != 1 ? "s" : "") + "!");
+
         StartTraining();
     }
 
