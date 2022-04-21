@@ -86,7 +86,7 @@ public class NetLearner : MonoBehaviour
             finished = true;
 
             // When the timer runs out, calculate a fitness value that is used to determine which agent performed the best.
-            fitness += transform.position.x;  // FIXME: This is just saying that the further in the +x direction, the better...
+            fitness -= transform.position.z;  // FIXME: This is just saying that the further in the +x direction, the better...
 
             // Done agents can be darkened
             Color c = rend.material.color;
